@@ -1,16 +1,38 @@
 from fastapi import FastAPI
+from app.database.database import Base, engine
+from app.core.config import settings
+from app.core.logging import setup_logging
+from app.database import models
+from app.api.routes.router import api_router
+
+
+logger = setup_logging()
 
 app = FastAPI(
-    title="Enterprise AI Research Agent",
-    version="1.0.0",
-    description="AI-powered Enterprise Research Platform"
+    title=settings.APP_NAME,
+    version=settings.APP_VERSION,
+    description="Enterprise AI Research Platform"
 )
+
+# Register all API routes
+app.include_router(api_router)
+
+
+@app.on_event("startup")
+def startup():
+    Base.metadata.create_all(bind=engine)
+
+    logger.info("Database initialized")
+    
+    logger.info("Application started successfully")
 
 
 @app.get("/")
 def root():
     return {
-        "message": "Enterprise AI Research Agent API is running!"
+        "application": settings.APP_NAME,
+        "version": settings.APP_VERSION,
+        "status": "running"
     }
 
 
