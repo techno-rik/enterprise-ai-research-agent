@@ -1,3 +1,5 @@
+from typing import Any
+
 from pydantic import BaseModel
 
 
@@ -9,3 +11,5 @@ class ResearchResponse(BaseModel):
     id: int
     topic: str
     status: str
+    sources_found: int
+    summary: Any

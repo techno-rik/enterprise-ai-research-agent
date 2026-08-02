@@ -1,8 +1,10 @@
+import json
 from sqlalchemy.orm import Session
-
+from app.ai.summarizer import ResearchSummarizer
 from app.database.models import (
     ResearchSession,
     Source,
+    Finding,
 )
 
 from app.research.search import TavilySearchService
@@ -25,6 +27,13 @@ def create_research_session(
 
     results = tavily.search(topic)
 
+    summarizer = ResearchSummarizer()
+
+    summary = summarizer.summarize(
+    topic,
+    results
+)
+
     for result in results:
 
         source = Source(
@@ -38,4 +47,22 @@ def create_research_session(
 
     db.commit()
 
-    return session
+    
+
+    finding = Finding(
+    research_id=session.id,
+    finding=json.dumps(summary, indent=2),
+    confidence=0.95
+)
+
+    db.add(finding)
+
+    db.commit()
+
+    return {
+    "id": session.id,
+    "topic": session.topic,
+    "status": "COMPLETED",
+    "sources_found": len(results),
+    "summary": summary
+}
