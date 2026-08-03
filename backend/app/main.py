@@ -4,6 +4,7 @@ from app.core.config import settings
 from app.core.logging import setup_logging
 from app.database import models
 from app.api.routes.router import api_router
+from fastapi.middleware.cors import CORSMiddleware
 
 
 logger = setup_logging()
@@ -12,6 +13,16 @@ app = FastAPI(
     title=settings.APP_NAME,
     version=settings.APP_VERSION,
     description="Enterprise AI Research Platform"
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:5173",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # Register all API routes

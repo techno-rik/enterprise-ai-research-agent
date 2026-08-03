@@ -1,0 +1,63 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#0F172A;
+    color:white;
+}
+
+.container{
+    width:90%;
+    max-width:1200px;
+    margin:auto;
+    padding:60px 20px;
+}
+
+h1{
+    font-size:3rem;
+}
+
+.subtitle{
+    color:#94A3B8;
+    margin-top:10px;
+}
+
+.research-card{
+    margin-top:40px;
+    background:#1E293B;
+    border-radius:16px;
+    padding:30px;
+}
+
+.research-form{
+    display:flex;
+    gap:15px;
+    margin-top:20px;
+}
+
+.research-form input{
+    flex:1;
+    padding:14px;
+    border:none;
+    border-radius:10px;
+    background:#334155;
+    color:white;
+    font-size:16px;
+}
+
+.research-form button{
+    background:#2563EB;
+    color:white;
+    border:none;
+    padding:14px 24px;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+.research-form button:hover{
+    background:#1D4ED8;
+}

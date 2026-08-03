@@ -8,7 +8,7 @@ from app.database.models import (
 )
 
 from app.research.search import TavilySearchService
-
+from app.vectorstore.chroma import ChromaVectorStore
 
 def create_research_session(
     db: Session,
@@ -27,6 +27,13 @@ def create_research_session(
 
     results = tavily.search(topic)
 
+    vector_db = ChromaVectorStore()
+
+    vector_db.add_documents(
+    session.id,
+    results
+    )
+    
     summarizer = ResearchSummarizer()
 
     summary = summarizer.summarize(
@@ -66,3 +73,4 @@ def create_research_session(
     "sources_found": len(results),
     "summary": summary
 }
+

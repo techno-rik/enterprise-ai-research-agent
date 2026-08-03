@@ -15,7 +15,9 @@ class TavilySearchService:
         response = self.client.search(
             query=topic,
             search_depth="advanced",
-            max_results=5
+            max_results=5,
+            include_answer=True,
+            include_raw_content=True
         )
 
         return response.get("results", [])
