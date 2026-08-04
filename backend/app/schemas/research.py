@@ -12,4 +12,7 @@ class ResearchResponse(BaseModel):
     topic: str
     status: str
     sources_found: int
+
+    sources: list[Any]
+
     summary: Any

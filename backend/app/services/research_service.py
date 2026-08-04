@@ -33,7 +33,7 @@ def create_research_session(
     session.id,
     results
     )
-    
+
     summarizer = ResearchSummarizer()
 
     summary = summarizer.summarize(
@@ -71,6 +71,15 @@ def create_research_session(
     "topic": session.topic,
     "status": "COMPLETED",
     "sources_found": len(results),
+
+    "sources": [
+        {
+            "title": source.get("title"),
+            "url": source.get("url")
+        }
+        for source in results
+    ],
+
     "summary": summary
 }
 
