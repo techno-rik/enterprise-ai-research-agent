@@ -1,13 +1,15 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
 from app.database.database import Base, engine
 from app.core.config import settings
 from app.core.logging import setup_logging
 from app.database import models
 from app.api.routes.router import api_router
-from fastapi.middleware.cors import CORSMiddleware
 
 
 logger = setup_logging()
+
 
 app = FastAPI(
     title=settings.APP_NAME,
@@ -15,7 +17,10 @@ app = FastAPI(
     description="Enterprise AI Research Platform"
 )
 
-from fastapi.middleware.cors import CORSMiddleware
+
+# ============================================================
+# CORS CONFIGURATION
+# ============================================================
 
 app.add_middleware(
     CORSMiddleware,
@@ -30,28 +35,29 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-    ],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
 
-# Register all API routes
+# ============================================================
+# REGISTER API ROUTES
+# ============================================================
+
 app.include_router(api_router)
 
+
+# ============================================================
+# STARTUP
+# ============================================================
 
 @app.on_event("startup")
 def startup():
     Base.metadata.create_all(bind=engine)
 
     logger.info("Database initialized")
-    
     logger.info("Application started successfully")
 
+
+# ============================================================
+# ROOT ENDPOINT
+# ============================================================
 
 @app.get("/")
 def root():
@@ -61,6 +67,10 @@ def root():
         "status": "running"
     }
 
+
+# ============================================================
+# HEALTH CHECK
+# ============================================================
 
 @app.get("/health")
 def health():
