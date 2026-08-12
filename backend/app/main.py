@@ -15,6 +15,21 @@ app = FastAPI(
     description="Enterprise AI Research Platform"
 )
 
+from fastapi.middleware.cors import CORSMiddleware
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "https://enterprise-ai-research-agent.vercel.app",
+        "https://enterprise-ai-research-agent-git-main-acme-ea95.vercel.app",
+        "https://enterprise-ai-research-agent-cnmwbcdau-acme-ea95.vercel.app",
+        "http://localhost:5173",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
