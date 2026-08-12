@@ -1,22 +1,15 @@
 import chromadb
 
-from sentence_transformers import SentenceTransformer
-
 
 class ChromaVectorStore:
 
     def __init__(self):
-
         self.client = chromadb.PersistentClient(
             path="./chroma_db"
         )
 
         self.collection = self.client.get_or_create_collection(
             "research"
-        )
-
-        self.model = SentenceTransformer(
-            "all-MiniLM-L6-v2"
         )
 
     def add_documents(
@@ -44,14 +37,9 @@ URL:
 {source.get("url")}
 """
 
-            embedding = self.model.encode(text).tolist()
-
             self.collection.add(
                 ids=[
                     f"{research_id}_{index}"
-                ],
-                embeddings=[
-                    embedding
                 ],
                 documents=[
                     text
@@ -70,10 +58,8 @@ URL:
         k: int = 5
     ):
 
-        embedding = self.model.encode(query).tolist()
-
         results = self.collection.query(
-            query_embeddings=[embedding],
+            query_texts=[query],
             n_results=k
         )
 

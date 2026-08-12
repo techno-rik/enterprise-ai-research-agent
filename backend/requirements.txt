@@ -25,11 +25,11 @@ greenlet==3.5.4
 groq==1.6.0
 grpcio==1.83.0
 h11==0.16.0
-hf-xet==1.5.2
+# hf-xet==1.5.2
 httpcore==1.0.9
 httptools==0.8.0
 httpx==0.28.1
-huggingface_hub==1.26.0
+# huggingface_hub==1.26.0
 idna==3.18
 importlib_resources==7.1.0
 Jinja2==3.1.6
@@ -76,10 +76,10 @@ requests==2.34.2
 requests-oauthlib==2.0.0
 rich==15.0.0
 rpds-py==2026.6.3
-safetensors==0.8.0
+# safetensors==0.8.0
 scikit-learn==1.9.0
 scipy==1.18.0
-sentence-transformers==5.6.1
+# sentence-transformers==5.6.1
 setuptools==83.0.0
 shellingham==1.5.4
 six==1.17.0
@@ -92,10 +92,10 @@ tavily-python==0.7.27
 tenacity==9.1.4
 threadpoolctl==3.6.0
 tiktoken==0.13.0
-tokenizers==0.22.2
-torch==2.13.0
+# tokenizers==0.22.2
+# torch==2.13.0
 tqdm==4.70.0
-transformers==5.14.1
+# transformers==5.14.1
 typer==0.27.0
 typing-inspection==0.4.2
 typing_extensions==4.16.0
